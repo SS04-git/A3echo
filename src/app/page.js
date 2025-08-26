@@ -1,95 +1,217 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+"use client";
+import React, { useState, useEffect } from "react";
+import Login from "./login";
+import Profile from "./profile";
 
 export default function Home() {
-  return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol>
-          <li>
-            Get started by editing <code>src/app/page.js</code>.
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const [splashVisible, setSplashVisible] = useState(true);
+  const [fadeOut, setFadeOut] = useState(false);
+  const [currentPage, setCurrentPage] = useState('login');
+  const [selectedContact, setSelectedContact] = useState(null);
+  const [username, setUsername] = useState('');
 
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
-          >
-            Read our docs
-          </a>
+  useEffect(() => {
+    const timer1 = setTimeout(() => setFadeOut(true), 4000);
+    const timer2 = setTimeout(() => setSplashVisible(false), 5000);
+
+    return () => {
+      clearTimeout(timer1);
+      clearTimeout(timer2);
+    };
+  }, []);
+
+  useEffect(() => {
+    const handleHashChange = () => {
+      if (window.location.hash === '#profile') {
+        setCurrentPage('profile');
+      } else if (window.location.hash === '#chat') {
+        setCurrentPage('chat');
+      } else {
+        setCurrentPage('login');
+      }
+    };
+
+    window.addEventListener('hashchange', handleHashChange);
+    handleHashChange();
+
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, []);
+
+  const navigateToProfile = () => {
+    setCurrentPage('profile');
+    window.location.hash = '#profile';
+  };
+
+  const navigateToChat = () => {
+    setCurrentPage('chat');
+    window.location.hash = '#chat';
+  };
+
+  const navigateToLogin = () => {
+    setCurrentPage('login');
+    window.location.hash = '';
+  };
+
+  useEffect(() => {
+    window.navigateToProfile = navigateToProfile;
+    window.navigateToChat = navigateToChat;
+    window.navigateToLogin = navigateToLogin;
+  }, []);
+
+  return (
+    <>
+      <style jsx>{`
+        .splash-screen {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(-45deg, #0d6efd, #6610f2, #74ebd5, #ACB6E5);
+          background-size: 400% 400%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-direction: column;
+          z-index: 9999;
+          animation: gradientShift 10s ease infinite, fadeIn 1.5s ease-out forwards;
+        }
+
+        .splash-screen.fade-out {
+          animation: fadeOut 1s ease-out forwards;
+        }
+
+        .splash-content {
+          text-align: center;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 12px;
+          margin-bottom: 12px;
+        }
+
+        .splash-title-wrapper {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          margin-bottom: 12px;
+        }
+
+        .splash-title-wrapper img {
+          width: 48px;
+          height: 48px;
+        }
+
+        .splash-title {
+          margin: 0;
+          font-weight: 800;
+          font-size: 80px;
+          letter-spacing: 1px;
+          color: #fff;
+          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .splash-tagline {
+          font-size: 20px;
+          font-style: italic;
+          opacity: 0.9;
+          color: #f8f9fa;
+        }
+
+        .ripple {
+          position: absolute;
+          border: 3px solid rgba(255, 255, 255, 0.4);
+          border-radius: 50%;
+          animation: rippleAnim 6s infinite;
+        }
+
+        .ripple1 {
+          width: 200px;
+          height: 200px;
+          animation-delay: 0s;
+        }
+
+        .ripple2 {
+          width: 300px;
+          height: 300px;
+          animation-delay: 2s;
+        }
+
+        .ripple3 {
+          width: 400px;
+          height: 400px;
+          animation-delay: 4s;
+        }
+
+        @keyframes gradientShift {
+          0% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
+        }
+
+        @keyframes shimmerText {
+          0% { background-position: -200px 0; }
+          100% { background-position: 200px 0; }
+        }
+
+        @keyframes fadeIn {
+          from { opacity: 0; transform: scale(0.95); }
+          to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes fadeOut {
+          from { opacity: 1; }
+          to { opacity: 0; visibility: hidden; }
+        }
+
+        @keyframes pulse {
+          0%, 100% { transform: scale(1); }
+          50% { transform: scale(1.05); }
+        }
+
+        @keyframes rippleAnim {
+          0% { transform: scale(0.8); opacity: 0.7; }
+          70% { transform: scale(2); opacity: 0; }
+          100% { opacity: 0; }
+        }
+      `}</style>
+
+      {splashVisible ? (
+        <div className={`splash-screen ${fadeOut ? "fade-out" : ""}`}>
+          <div className="splash-content">
+            <div className="splash-title-wrapper">
+              <img 
+                src="https://img.icons8.com/ios-filled/50/ffffff/chat--v1.png" 
+                alt="Echo Logo"
+              />
+              <h1 className="splash-title">Echo</h1>
+            </div>
+            <span className="splash-tagline">
+              Say it. Share it. Echo it.
+            </span>
+          </div>
+
+          <div className="ripple ripple1"></div>
+          <div className="ripple ripple2"></div>
+          <div className="ripple ripple3"></div>
         </div>
-      </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+      ) : (
+        <>
+          {currentPage === 'profile' ? (
+            <Profile 
+              username={username}
+              onNavigateToChat={navigateToChat}
+              onSelectContact={setSelectedContact}
+            />
+          ) : (
+            <Login 
+              onUsernameChange={setUsername}
+              selectedContact={selectedContact}
+            />
+          )}
+        </>
+      )}
+      
+    </>
   );
 }
