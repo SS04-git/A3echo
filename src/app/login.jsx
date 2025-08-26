@@ -11,14 +11,12 @@ export default function Login({ onUsernameChange, selectedContact }) {
   const handleLogin = () => {
     if (username.trim() !== "" && password.trim() !== "") {
       setLoggedIn(true);
-      // Pass the username back to the parent component
       if (onUsernameChange) {
         onUsernameChange(username);
       }
     }
   };
-
-  // Handle Enter key press for login
+  
   const handleKeyPress = (e) => {
     if (e.key === 'Enter') {
       handleLogin();

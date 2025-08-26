@@ -27,19 +27,19 @@ export default function ChatPage({ username, selectedContact, onNavigateToProfil
   }, [selectedContact]);
 
   const [allMessages, setAllMessages] = useState({
-    1: [ // Alice's messages
+    1: [ 
       { sender: "Alice", text: "Hey! How are you?", time: "10:00 AM", day: "Today" },
       { sender: "Me", text: "I'm good, thanks! How about you?", time: "10:02 AM", day: "Today" },
       { sender: "Alice", text: "Great! Are we still on for lunch tomorrow?", time: "10:05 AM", day: "Today" },
       { sender: "Me", text: "Absolutely! See you at 12:30", time: "10:07 AM", day: "Today" },
     ],
-    2: [ // Nancy's messages
+    2: [ 
       { sender: "Nancy", text: "Did you finish the project report?", time: "9:30 AM", day: "Today" },
       { sender: "Me", text: "Almost done! Will send it by end of day", time: "9:32 AM", day: "Today" },
       { sender: "Nancy", text: "Got it, thanks!", time: "9:35 AM", day: "Today" },
       { sender: "Me", text: "No problem at all", time: "9:36 AM", day: "Today" },
     ],
-    3: [ // Nirmala's messages
+    3: [ 
       { sender: "Nirmala", text: "Want to join our game night this Friday?", time: "2:15 PM", day: "Yesterday" },
       { sender: "Me", text: "That sounds fun! What games are you playing?", time: "2:20 PM", day: "Yesterday" },
       { sender: "Nirmala", text: "Board games and some video games. Starts at 7 PM", time: "2:22 PM", day: "Yesterday" },
