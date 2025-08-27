@@ -352,9 +352,9 @@ export default function Profile({ username, onNavigateToChat, onSelectContact })
     <Button 
       variant="outline-secondary" 
       style={{ 
-        height: "100%",              // 🔑 match input height
+        height: "100%",              
         width: "40px",
-        borderTopLeftRadius: 0,      // 🔑 seamless join with input
+        borderTopLeftRadius: 0,      
         borderBottomLeftRadius: 0,
         backgroundColor: filterOpen ? "#e9ecef" : "#fff",
         borderColor: filterOpen ? "#adb5bd" : "#ced4da",
