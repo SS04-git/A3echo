@@ -341,81 +341,89 @@ export default function Profile({ username, onNavigateToChat, onSelectContact })
 
           <div style={{ padding: "8px" }}>
             <InputGroup>
-              <Form.Control 
-                type="text" 
-                placeholder="Search chats..." 
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                style={{ fontSize: "14px" }}
+  <Form.Control 
+    type="text" 
+    placeholder="Search chats..." 
+    value={searchQuery}
+    onChange={(e) => setSearchQuery(e.target.value)}
+    style={{ fontSize: "14px" }}
+  />
+  <div style={{ position: "relative" }} className="dropdown-container">
+    <Button 
+      variant="outline-secondary" 
+      style={{ 
+        height: "100%",              // 🔑 match input height
+        width: "40px",
+        borderTopLeftRadius: 0,      // 🔑 seamless join with input
+        borderBottomLeftRadius: 0,
+        backgroundColor: filterOpen ? "#e9ecef" : "#fff",
+        borderColor: filterOpen ? "#adb5bd" : "#ced4da",
+        color: "#495057"
+      }}
+      onClick={() => {
+        setFilterOpen(!filterOpen);
+        setSettingsOpen(false);
+        setProfileOpen(false);
+      }}
+    >
+      <i className="bi bi-funnel" style={{ color: "#495057" }}></i>
+    </Button>
+
+    {filterOpen && (
+      <div
+        style={{
+          position: "absolute",
+          right: "0",
+          top: "45px",
+          width: "200px",
+          backgroundColor: "#fff",
+          border: "1px solid #dee2e6",
+          borderRadius: "8px",
+          boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
+          zIndex: 1300,
+        }}
+      >
+        <div style={{ padding: "8px 0" }}>
+          {[
+            { key: "all", icon: "bi-list", text: "All Chats" },
+            { key: "online", icon: "bi-circle-fill", text: "Online", color: "#28a745" },
+            { key: "offline", icon: "bi-circle-fill", text: "Offline", color: "#6c757d" }
+          ].map((filter) => (
+            <div 
+              key={filter.key}
+              style={{ 
+                padding: "8px 16px", 
+                fontSize: "14px",
+                backgroundColor: selectedFilter === filter.key ? "#e3f2fd" : "transparent",
+                fontWeight: selectedFilter === filter.key ? "600" : "400",
+                cursor: "pointer"
+              }}
+              onClick={() => {
+                setSelectedFilter(filter.key);
+                setFilterOpen(false);
+              }}
+              onMouseEnter={(e) => {
+                if (selectedFilter !== filter.key) e.target.style.backgroundColor = "#f8f9fa";
+              }}
+              onMouseLeave={(e) => {
+                if (selectedFilter !== filter.key) e.target.style.backgroundColor = "transparent";
+              }}
+            >
+              <i
+                className={`bi ${filter.icon} me-2`} 
+                style={{ 
+                  color: filter.color, 
+                  fontSize: filter.icon.includes("circle") ? "8px" : "inherit" 
+                }}
               />
-              <div style={{ position: "relative" }} className="dropdown-container">
-                <Button 
-                  variant="outline-secondary" 
-                  style={{ 
-                    width: "40px",
-                    backgroundColor: filterOpen ? "#e9ecef" : "#fff",
-                    borderColor: filterOpen ? "#adb5bd" : "#ced4da",
-                    color: "#495057"
-                  }}
-                  onClick={() => {
-                    setFilterOpen(!filterOpen);
-                    setSettingsOpen(false);
-                    setProfileOpen(false);
-                  }}
-                >
-                  <i className="bi bi-funnel" style={{ color: "#495057" }}></i>
-                </Button>
-                
-                {filterOpen && (
-                  <div
-                    style={{
-                      position: "absolute",
-                      right: "0",
-                      top: "45px",
-                      width: "200px",
-                      backgroundColor: "#fff",
-                      border: "1px solid #dee2e6",
-                      borderRadius: "8px",
-                      boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
-                      zIndex: 1300,
-                    }}
-                  >
-                    <div style={{ padding: "8px 0" }}>
-                      {[
-                        { key: "all", icon: "bi-list", text: "All Chats" },
-                        { key: "online", icon: "bi-circle-fill", text: "Online", color: "#28a745" },
-                        { key: "offline", icon: "bi-circle-fill", text: "Offline", color: "#6c757d" }
-                      ].map((filter) => (
-                        <div 
-                          key={filter.key}
-                          style={{ 
-                            padding: "8px 16px", 
-                            fontSize: "14px",
-                            backgroundColor: selectedFilter === filter.key ? "#e3f2fd" : "transparent",
-                            fontWeight: selectedFilter === filter.key ? "600" : "400",
-                            cursor: "pointer"
-                          }}
-                          onClick={() => {
-                            setSelectedFilter(filter.key);
-                            setFilterOpen(false);
-                          }}
-                          onMouseEnter={(e) => {
-                            if (selectedFilter !== filter.key) e.target.style.backgroundColor = "#f8f9fa";
-                          }}
-                          onMouseLeave={(e) => {
-                            if (selectedFilter !== filter.key) e.target.style.backgroundColor = "transparent";
-                          }}
-                        >
-                          <i className={`bi ${filter.icon} me-2`} 
-                             style={{ color: filter.color, fontSize: filter.icon.includes('circle') ? "8px" : "inherit" }}></i>
-                          {filter.text}
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
-              </div>
-            </InputGroup>
+              {filter.text}
+            </div>
+          ))}
+        </div>
+      </div>
+    )}
+  </div>
+</InputGroup>
           </div>
 
           <div style={{ flexGrow: 1, overflow: "auto" }}>

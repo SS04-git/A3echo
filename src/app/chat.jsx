@@ -368,7 +368,7 @@ zIndex: 1200,
     overflow: "hidden",
     backgroundColor: "#fff",
     borderRight: "1px solid #dee2e6",
-    borderTopLeftRadius: "20px", // Add this line
+    borderTopLeftRadius: "20px", 
     display: "flex",
     flexDirection: "column",
     zIndex: 1100,
@@ -379,47 +379,49 @@ zIndex: 1200,
     Welcome, {username} !!!
   </div>
           <div style={{ padding: "8px" }}>
-            <InputGroup>
-              <Form.Control 
-                type="text" 
-                placeholder="Search chats..." 
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                style={{ fontSize: "14px" }}
-              />
-              <div style={{ position: "relative" }} className="dropdown-container">
-                <Button 
-                  variant="outline-secondary" 
-                  style={{ 
-                    width: "40px",
-                    backgroundColor: filterOpen ? "#e9ecef" : "#fff",
-                    borderColor: filterOpen ? "#adb5bd" : "#ced4da",
-                    color: "#495057"
-                  }}
-                  onClick={() => {
-                    setFilterOpen(!filterOpen);
-                    setSettingsOpen(false);
-                    setProfileOpen(false);
-                  }}
-                >
-                  <i className="bi bi-funnel" style={{ color: "#495057" }}></i>
-                </Button>
-                
-                {filterOpen && (
-                  <div
-                    style={{
-                      position: "absolute",
-                      right: "0",
-                      top: "45px",
-                      width: "200px",
-                      backgroundColor: "#fff",
-                      border: "1px solid #dee2e6",
-                      borderRadius: "8px",
-                      boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
-                      zIndex: 1300,
-                    }}
-                  >
-                    <div style={{ padding: "8px 0" }}>
+<InputGroup>
+  <Form.Control
+    type="text"
+    placeholder="Search chats..."
+    value={searchQuery}
+    onChange={(e) => setSearchQuery(e.target.value)}
+    style={{ fontSize: "14px" }}
+  />
+  <div style={{ position: "relative" }} className="dropdown-container">
+    <Button
+      variant="outline-secondary"
+      style={{
+        height: "100%",              
+        borderTopLeftRadius: "0",    
+        borderBottomLeftRadius: "0",
+        backgroundColor: filterOpen ? "#e9ecef" : "#fff",
+        borderColor: filterOpen ? "#adb5bd" : "#ced4da",
+        color: "#495057",
+      }}
+      onClick={() => {
+        setFilterOpen(!filterOpen);
+        setSettingsOpen(false);
+        setProfileOpen(false);
+      }}
+    >
+      <i className="bi bi-funnel" style={{ color: "#495057" }}></i>
+    </Button>
+
+    {filterOpen && (
+      <div
+        style={{
+          position: "absolute",
+          right: "0",
+          top: "45px",
+          width: "200px",
+          backgroundColor: "#fff",
+          border: "1px solid #dee2e6",
+          borderRadius: "8px",
+          boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
+          zIndex: 1300,
+        }}
+      >
+        <div style={{ padding: "8px 0" }}>
                       <div 
                         style={{ 
                           padding: "8px 16px", 
@@ -559,7 +561,7 @@ zIndex: 1200,
     padding: "12px 16px",
     borderBottom: "1px solid #dee2e6",
     backgroundColor: "#fff",
-    borderTopLeftRadius: sidebarOpen ? "0px" : "20px", // ✅ only one definition
+    borderTopLeftRadius: sidebarOpen ? "0px" : "20px", 
     display: "flex",
     alignItems: "center",
     minHeight: "60px",
