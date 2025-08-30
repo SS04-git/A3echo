@@ -12,6 +12,7 @@ import {
   Image,
 } from "react-bootstrap";
 import 'bootstrap-icons/font/bootstrap-icons.css';
+import { Link } from "react-router-dom";
 
 const contacts = [
   { id: 1, name: "Alice", lastMsg: "See you soon!", status: "online", avatar: "/alice.jpg" },
@@ -123,121 +124,126 @@ export default function Profile({ username, onNavigateToChat, onSelectContact })
       </div>
 
       <Row style={{ height: "calc(100vh - 87px)", margin: 0 }}>
-        {/* Thick Vertical Strip */}
+{/* Thick Vertical Strip */}
+<div
+  style={{
+    position: "fixed",
+    top: "50px",
+    left: 0,
+    height: "calc(100% - 50px)",
+    width: "70px",
+    background: "linear-gradient(180deg, #0d6efd, #0056b3)", 
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
+    alignItems: "center",
+    padding: "16px 0",
+    zIndex: 1200, 
+  }}
+>
+  {/* Top Section (Hamburger + Chat) */}
+  <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "16px" }}>
+    {/* Hamburger */}
+    <Button
+      variant="light"
+      style={{
+        width: "40px",
+        height: "40px",
+        padding: 0,
+        border: "none",
+        backgroundColor: "transparent",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        color: "#fff",
+      }}
+      onClick={() => setSidebarOpen(!sidebarOpen)}
+    >
+      <i className="bi bi-list" style={{ fontSize: "24px", color: "#fff" }}></i>
+    </Button>
+
+    {/* Chat Icon */}
+    <Link to="/chat" style={{ textDecoration: "none" }}>
+      <i className="bi bi-chat-dots" style={{ fontSize: "24px", color: "#fff" }}></i>
+    </Link>
+  </div>
+
+  {/* Bottom section with Settings and Profile */}
+  <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "12px" }}>
+    {/* Settings */}
+    <div style={{ position: "relative" }} className="dropdown-container">
+      <Button
+        variant="light"
+        style={{
+          width: "40px",
+          height: "40px",
+          padding: 0,
+          border: "none",
+          backgroundColor: "transparent",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          color: "#fff",
+        }}
+        onClick={() => {
+          setSettingsOpen(!settingsOpen);
+          setProfileOpen(false);
+        }}
+      >
+        <i className="bi bi-gear" style={{ fontSize: "22px", color: "#fff" }}></i>
+      </Button>
+      
+      {settingsOpen && (
         <div
           style={{
             position: "fixed",
-            top: "50px",
-            left: 0,
-            height: "calc(100% - 50px)",
-            width: "70px",
-            background: "linear-gradient(180deg, #0d6efd, #0056b3)",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "space-between",
-            alignItems: "center",
-            padding: "16px 0",
-            zIndex: 1200,
+            left: "80px",
+            bottom: "70px",
+            width: "180px",
+            backgroundColor: "#fff",
+            border: "1px solid #dee2e6",
+            borderRadius: "8px",
+            boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
+            zIndex: 1300,
           }}
         >
-          {/* Hamburger */}
-          <Button
-            variant="light"
-            style={{
-              width: "40px",
-              height: "40px",
-              padding: 0,
-              border: "none",
-              backgroundColor: "transparent",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              color: "#fff",
-            }}
-            onClick={() => setSidebarOpen(!sidebarOpen)}
-          >
-            <i className="bi bi-list" style={{ fontSize: "24px", color: "#fff" }}></i>
-          </Button>
-
-          {/* Bottom section with Settings and Profile */}
-          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "12px" }}>
-            {/* Settings */}
-            <div style={{ position: "relative" }} className="dropdown-container">
-              <Button
-                variant="light"
-                style={{
-                  width: "40px",
-                  height: "40px",
-                  padding: 0,
-                  border: "none",
-                  backgroundColor: "transparent",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  color: "#fff",
-                }}
-                onClick={() => {
-                  setSettingsOpen(!settingsOpen);
-                  setProfileOpen(false);
-                }}
-              >
-                <i className="bi bi-gear" style={{ fontSize: "22px", color: "#fff" }}></i>
-              </Button>
-              
-              {settingsOpen && (
-                <div
-                  style={{
-                    position: "fixed",
-                    left: "80px",
-                    bottom: "70px",
-                    width: "180px",
-                    backgroundColor: "#fff",
-                    border: "1px solid #dee2e6",
-                    borderRadius: "8px",
-                    boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
-                    zIndex: 1300,
-                  }}
-                >
-                  <div style={{ padding: "8px 0" }}>
-                    <div 
-                      style={{ 
-                        padding: "8px 16px", 
-                        fontSize: "14px", 
-                        borderBottom: "1px solid #f1f3f4",
-                        cursor: "pointer"
-                      }}
-                      onMouseEnter={(e) => e.target.style.backgroundColor = "#f8f9fa"}
-                      onMouseLeave={(e) => e.target.style.backgroundColor = "transparent"}
-                    >
-                      <i className="bi bi-bell me-2"></i>Notifications
-                    </div>
-                    <div 
-                      style={{ 
-                        padding: "8px 16px", 
-                        fontSize: "14px", 
-                        borderBottom: "1px solid #f1f3f4",
-                        cursor: "pointer"
-                      }}
-                      onMouseEnter={(e) => e.target.style.backgroundColor = "#f8f9fa"}
-                      onMouseLeave={(e) => e.target.style.backgroundColor = "transparent"}
-                    >
-                      <i className="bi bi-shield-lock me-2"></i>Privacy
-                    </div>
-                    <div 
-                      style={{ 
-                        padding: "8px 16px", 
-                        fontSize: "14px",
-                        cursor: "pointer"
-                      }}
-                      onMouseEnter={(e) => e.target.style.backgroundColor = "#f8f9fa"}
-                      onMouseLeave={(e) => e.target.style.backgroundColor = "transparent"}
-                    >
-                      <i className="bi bi-palette me-2"></i>Theme
-                    </div>
-                  </div>
-                </div>
-              )}
+          <div style={{ padding: "8px 0" }}>
+            <div 
+              style={{ 
+                padding: "8px 16px", 
+                fontSize: "14px",
+                borderBottom: "1px solid #f1f3f4"
+              }}
+              onMouseEnter={(e) => e.target.style.backgroundColor = "#f8f9fa"}
+              onMouseLeave={(e) => e.target.style.backgroundColor = "transparent"}
+            >
+              <i className="bi bi-bell me-2"></i>Notifications
             </div>
+            <div 
+              style={{ 
+                padding: "8px 16px", 
+                fontSize: "14px",
+                borderBottom: "1px solid #f1f3f4"
+              }}
+              onMouseEnter={(e) => e.target.style.backgroundColor = "#f8f9fa"}
+              onMouseLeave={(e) => e.target.style.backgroundColor = "transparent"}
+            >
+              <i className="bi bi-shield-lock me-2"></i>Privacy
+            </div>
+            <div 
+              style={{ 
+                padding: "8px 16px", 
+                fontSize: "14px"
+              }}
+              onMouseEnter={(e) => e.target.style.backgroundColor = "#f8f9fa"}
+              onMouseLeave={(e) => e.target.style.backgroundColor = "transparent"}
+            >
+              <i className="bi bi-palette me-2"></i>Theme
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
 
             {/* Profile Dropdown */}
             <div style={{ position: "relative" }} className="dropdown-container">

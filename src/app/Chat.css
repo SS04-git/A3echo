@@ -49,3 +49,34 @@
   background-color: #a8a8a8;
 }
 
+/* Media queries for mobile */
+@media (max-width: 576px) {
+  .vertical-strip {
+    width: 50px;
+  }
+  .chat-window {
+    margin-left: 50px !important;
+    width: calc(100vw - 50px) !important;
+  }
+  .chat-header {
+    left: 50px !important;
+  }
+  .input-area {
+    left: 50px !important;
+  }
+  .message-bubble {
+    max-width: 85% !important;
+    font-size: 12px !important;
+  }
+  .sidebar {
+    width: 100vw !important;
+    left: -100vw !important;
+  }
+  .sidebar.open {
+    left: 50px !important;
+  }
+  .message-details {
+    max-width: 90vw !important;
+    font-size: 14px !important;
+  }
+}

@@ -1,0 +1,113 @@
+        .splash-screen {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(-45deg, #0d6efd, #6610f2, #74ebd5, #ACB6E5);
+          background-size: 400% 400%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-direction: column;
+          z-index: 9999;
+          animation: gradientShift 10s ease infinite, fadeIn 1.5s ease-out forwards;
+        }
+
+        .splash-screen.fade-out {
+          animation: fadeOut 1s ease-out forwards;
+        }
+
+        .splash-content {
+          text-align: center;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 12px;
+          margin-bottom: 12px;
+        }
+
+        .splash-title-wrapper {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          margin-bottom: 12px;
+        }
+
+        .splash-title-wrapper img {
+          width: 48px;
+          height: 48px;
+        }
+
+        .splash-title {
+          margin: 0;
+          font-weight: 800;
+          font-size: 80px;
+          letter-spacing: 1px;
+          color: #fff;
+          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .splash-tagline {
+          font-size: 20px;
+          font-style: italic;
+          opacity: 0.9;
+          color: #f8f9fa;
+        }
+
+        .ripple {
+          position: absolute;
+          border: 3px solid rgba(255, 255, 255, 0.4);
+          border-radius: 50%;
+          animation: rippleAnim 6s infinite;
+        }
+
+        .ripple1 {
+          width: 200px;
+          height: 200px;
+          animation-delay: 0s;
+        }
+
+        .ripple2 {
+          width: 300px;
+          height: 300px;
+          animation-delay: 2s;
+        }
+
+        .ripple3 {
+          width: 400px;
+          height: 400px;
+          animation-delay: 4s;
+        }
+
+        @keyframes gradientShift {
+          0% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
+        }
+
+        @keyframes shimmerText {
+          0% { background-position: -200px 0; }
+          100% { background-position: 200px 0; }
+        }
+
+        @keyframes fadeIn {
+          from { opacity: 0; transform: scale(0.95); }
+          to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes fadeOut {
+          from { opacity: 1; }
+          to { opacity: 0; visibility: hidden; }
+        }
+
+        @keyframes pulse {
+          0%, 100% { transform: scale(1); }
+          50% { transform: scale(1.05); }
+        }
+
+        @keyframes rippleAnim {
+          0% { transform: scale(0.8); opacity: 0.7; }
+          70% { transform: scale(2); opacity: 0; }
+          100% { opacity: 0; }
+        }
